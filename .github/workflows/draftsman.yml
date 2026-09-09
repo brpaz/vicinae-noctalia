@@ -1,0 +1,25 @@
+name: Update draft release
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      # Must stay pinned by tag, not SHA: the action's install step downloads
+      # its own release asset from a URL built from github.action_ref, which
+      # only resolves to a real release when the ref is the tag itself.
+      - uses: brpaz/draftsman@v0.2.3
+        with:
+          command: draft
+          backend: github
+          token: ${{ secrets.GITHUB_TOKEN }}

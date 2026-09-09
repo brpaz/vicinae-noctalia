@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://brpaz.github.io/draftsman/schema/config.schema.json
+tag-format: "v{{version}}"
+skip-changelog-trailer: Skip-Changelog
+categories:
+  - type: fix
+    scope: security
+    section: "🔐 Security updates"
+  - type: feat
+    scope: security
+    section: "🔐 Security updates"
+  - type: chore
+    scope: deps
+    section: "🧩 Dependency Updates"
+  - type: feat
+    section: "🚀 Features"
+  - type: fix
+    section: "🐛 Bug Fixes"
+  - type: docs
+    section: "📄 Documentation"
+  - type: chore
+    section: "⚠️ Maintenance"
