@@ -8,11 +8,18 @@ export async function runMsg(args: string[]): Promise<string> {
     const { stdout } = await execFileAsync('noctalia', ['msg', ...args]);
     return stdout.trim();
   } catch (error) {
-    const err = error as NodeJS.ErrnoException;
+    const err = error as NodeJS.ErrnoException & {
+      stdout?: string;
+      stderr?: string;
+    };
     if (err.code === 'ENOENT') {
       throw new Error('noctalia not found. Is Noctalia Shell installed?');
     }
-    throw new Error(`noctalia msg ${args.join(' ')} failed: ${err.message}`);
+    // noctalia prints its actual error reason to stdout, not stderr or the
+    // exec error's own message, so surface that instead of a generic
+    // "Command failed" message.
+    const reason = err.stdout?.trim() || err.stderr?.trim() || err.message;
+    throw new Error(reason);
   }
 }
 

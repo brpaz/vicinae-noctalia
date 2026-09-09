@@ -558,6 +558,7 @@ const brightness: NoctaliaCommand[] = [
     category: 'Brightness',
     args: ['brightness-osd'],
     icon: Icon.Sun,
+    argument: { placeholder: '0-100' },
   },
   {
     id: 'brightness-set',
